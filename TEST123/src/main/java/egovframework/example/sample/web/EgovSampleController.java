@@ -19,17 +19,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import egovframework.example.sample.service.ListVO;
 import egovframework.example.sample.service.PageVO;
 import egovframework.example.sample.service.TaskVO;
 import egovframework.example.sample.service.UserVO;
 import egovframework.example.sample.service.impl.EgovSampleServiceImpl;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.SocketUtils;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -57,7 +56,7 @@ import org.springframework.web.servlet.ModelAndView;
  */
 
 @Controller
-@SessionAttributes("loginID") //loginID는 세션에 저장됨
+@SessionAttributes("loginId") //loginID는 세션에 저장됨
 public class EgovSampleController {
 
 
@@ -91,7 +90,7 @@ public class EgovSampleController {
 	 */
 	@ResponseBody
 	@RequestMapping(value="/idchkDB.do", method = RequestMethod.POST)
-	public HashMap<String, String> idchkDB(@RequestBody HashMap<String, String> map,final HttpSession session) {
+	public HashMap<String, String> idchkDB(@RequestBody HashMap<String, String> map,HttpSession session) {
 		String ID = map.get("loginID");
 		String cnt ="0";
 		try {
@@ -109,22 +108,26 @@ public class EgovSampleController {
 	
 	
 	@RequestMapping("/taskInfo.do")
-	public ModelAndView taskInfo(@RequestParam String num, ModelAndView mv) {
+	public ModelAndView taskInfo(@RequestParam String num, ModelAndView mv,HttpSession session) {
 		System.out.println("????taskInfo동작중~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~??? ");
 	try {
 			
 			if (num!=null) {
-				task = service.taskSelect(num);
+				task = service.taskSelect(num); //과제정보 조회
+				mv.addObject("loginId",session.getAttribute("loginId"));
+				mv.addObject("id",task.getId());
 				mv.addObject("name",task.getName());
 				mv.addObject("startDay",task.getStartDay());
 				mv.addObject("endDay",task.getEndDay());
-				ArrayList<UserVO> list = service.listSelect(num) ;
+				mv.addObject("task",task);
+				ArrayList<UserVO> list = service.listSelect(num) ; //추가된 사용자 리스트 조회
 				mv.addObject("list",list);
 			}
 		} catch (Exception e) {
 		}
 			mv.addObject("num", num);
 			mv.setViewName("sample/taskInfo");
+			System.out.println("taskInfo종료~~~~");
 			return mv;
 	}
 
@@ -175,15 +178,14 @@ public class EgovSampleController {
 	 */
 	@ResponseBody 
 	@RequestMapping(value="/taskInsertDB.do", method=RequestMethod.POST)
-	public HashMap<String, String> taskInsertDB(@RequestBody HashMap<String, String> map, HttpSession session) {
+	public HashMap<String, String> taskInsertDB(@RequestBody HashMap<String, String> map,HttpServletRequest req, HttpSession session) {
 		System.out.println("cccccccccccc / insertDB확인  /cccccccccccccccccccccccccc");
-		task.setId((String)session.getAttribute("loginId"));
+		session = req.getSession();
+		String value = (String) session.getAttribute("loginId");
+		task.setId(value);
 		task.setName(map.get("name"));
 		task.setStartDay(map.get("startDay"));
 		task.setEndDay(map.get("endDay"));
-		System.out.println(task.getId());
-		System.out.println(task.getName());
-		System.out.println(task.getStartDay());
 		try {
 			int chk = 0;
 			chk = service.nameChk(map);

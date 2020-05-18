@@ -22,7 +22,7 @@
 		from task
 		where id = #{id} and name = #{name} and startday = #{startDay} and endday = #{endDay}
 	</select>
-	<select id="nameChk" parameterType="Map">
+	<select id="nameChk" parameterType="Map" resultType="int">
 		
 		select count(*)
 		

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -143,24 +144,27 @@ function ajaxDelete(trid,trnum){
         		 <div class="form-group row">
 				    <label for="name" class="col-sm-2 col-form-label">과제명</label>
 				    <div class="col-sm-9">
-				      <input type="text" class="form-control" id="name" name="name" value="${name}">
+				      <input type="text" class="form-control" id="name" name="name" value="${task.name}">
 				     </div>
 				 </div>
 				 <div class="form-group row">
 				    <label for="date" class="col-sm-2 col-form-label">과제기간</label>
 				    <div class="col-sm-4">
-				     <input type="date" class="form-control" id="startDay" name="startDay" value="${startDay }">
+				     <input type="date" class="form-control" id="startDay" name="startDay" value="${task.startDay }">
 				     </div>
 				      ~
 				     <div class="col-sm-5">
-				     <input type="date" class="form-control" id="endDay" name="endDay" value="${endDay }"/>
+				     <input type="date" class="form-control" id="endDay" name="endDay" value="${task.endDay }"/>
 				    </div>
 				  </div>
-				  <input type="button" id="updateBtn" class="btn btn-sm btn-secondary" value="수정">
+			
+				  <c:if test="${task.id eq loginId }">
+				  	<input type="button" id="updateBtn" class="btn btn-sm btn-secondary" value="수정">
+				  </c:if>
 				</form>
 				<p/>
 				<form>
-					<table class="tableCenter table-hover">
+					<table class="tableCenter table-hover table-mar">
 						 <tr>
 			                <th>No</th>
 			                <th>사용자ID</th>
@@ -174,10 +178,13 @@ function ajaxDelete(trid,trnum){
 			         	  </tr>
 			            </c:forEach>
 					</table>
-					<input type="button" id="insertBTN" class="btn btn-sm btn-secondary" value="사용자추가">	
+					<c:if test="${task.id eq loginId }">
+						<input type="button" id="insertBTN" class="btn btn-sm btn-secondary" value="사용자추가">	
+					</c:if>
 				</form>
 	        </div>
         </div>
     </div>
+ 
 </body>
 </html>

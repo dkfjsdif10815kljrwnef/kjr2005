@@ -11,7 +11,6 @@
 		
 		
 		<style>
-		
 		 .headerCenter {
                 text-align: center;
                 margin: auto;
@@ -28,7 +27,10 @@
                  margin:auto;
                  text-align: center
           }
-          
+          .table-mar {
+          	margin-top : 25px;
+          	margin-bottom : 15px;
+          }
          </style>
 </head>
 <body>

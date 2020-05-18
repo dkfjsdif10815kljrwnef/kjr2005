@@ -150,28 +150,24 @@ public class EgovSampleServiceImpl extends EgovAbstractServiceImpl implements Eg
 	
 	@Override
 	public int nameChk(Map map) throws Exception {
-		System.out.println("~~~~~~~~~~~~~~~~~~~~~~~serviceImpl의 nameChk~~~~~~~~~~~~~~~~~~~~~~~");
 		int num = sqlSession.selectOne(namespace+"nameChk",map);
 		return num;
 	}
 
 	@Override
 	public TaskVO taskSelect(String num) throws Exception {
-		System.out.println("~~~~~~~~~~~~~~~~~~~~~~~serviceImpl의 taskSelect~~~~~~~~~~~~~~~~~~~~~~~");
 		TaskVO vo = sqlSession.selectOne(namespace+"taskSelect",num);
 		return vo;
 	}
 
 	@Override //전체 사용자리스트 확인. 사용자정보 userVO를 List에 저장.
 	public  ArrayList<UserVO> listSelect (String num) throws Exception {
-		System.out.println("~~~~~~~~~~~~~~~~~~~~~~~serviceImpl의 userAll~~~~~~~~~~~~~~~~~~~~~~~");
 		List<UserVO> list = sqlSession.selectList(namespace+"listSelect",num);
 		return  (ArrayList<UserVO>)list;
 	}
 	
 	@Override
 	public ArrayList<UserVO> listAll(Map map) {
-		System.out.println("~~~~~~~~~~~~~~~~~~~~~~~serviceImpl의 listAll~~~~~~~~~~~~~~~~~~~~~~~");
 		List<UserVO> list = sqlSession.selectList(namespace+"listAll",map);
 		return  (ArrayList<UserVO>)list;
 	}
@@ -189,7 +185,6 @@ public class EgovSampleServiceImpl extends EgovAbstractServiceImpl implements Eg
 
 	@Override
 	public int nameChk02(Map map) throws Exception {
-		System.out.println("~~~~~~~~~~~~~~~~~~~~~~~serviceImpl의 nameChk02~~~~~~~~~~~~~~~~~~~~~~~");
 		int num = sqlSession.selectOne(namespace+"nameChk02",map);
 		return num;
 	}
