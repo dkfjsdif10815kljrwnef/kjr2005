@@ -45,9 +45,8 @@
 		where num = #{num}
 			  and
 			  id =	#{id}
-			
-		
 	</delete>
+	
 	<insert id="userInsert" parameterType="UserVO">
 		insert into user
 		(id,name)

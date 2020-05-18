@@ -186,6 +186,13 @@ public class EgovSampleServiceImpl extends EgovAbstractServiceImpl implements Eg
 		int result = sqlSession.delete(namespace+"listDelete", map);
 		return result;
 	}
+
+	@Override
+	public int nameChk02(Map map) throws Exception {
+		System.out.println("~~~~~~~~~~~~~~~~~~~~~~~serviceImpl의 nameChk02~~~~~~~~~~~~~~~~~~~~~~~");
+		int num = sqlSession.selectOne(namespace+"nameChk02",map);
+		return num;
+	}
 	
 	
 

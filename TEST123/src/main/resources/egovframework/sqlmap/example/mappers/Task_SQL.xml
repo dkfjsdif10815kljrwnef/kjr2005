@@ -31,15 +31,19 @@
 		where name = #{name}
 		
 	</select>
-	<select id="nameChk02" parameterType="Map">
-	SELECT cnt01+cnt02 num
+	<select id="nameChk02" parameterType="Map" resultType="int">
+	SELECT (case when (cnt01=0 and cnt02=0 and cnt03 = 0) then 0
+										   		when (cnt01=1 and cnt02=1 and cnt03=1) then 0
+												else 1 end ) test								
 	FROM (
 		SELECT (select count(*) from task 
-					where id = (SELECT id FROM task WHERE num=41) and name ='02다다') cnt01, 
-				   (select count(*) from task where num=41 and name='02다다') cnt02
+					where id = (SELECT id FROM task WHERE num= #{num}) and name = #{name}) cnt01, 
+				   (select count(*) from task where num=#{num} and name= #{name}) cnt02,
+				   (select count(*) from task where name= #{name}) cnt03
 		FROM DUAL) a;
+		
 	
-	
+
 	</select>
 	<update id="taskUpdate" parameterType="TaskVO">
 		update task

@@ -117,4 +117,5 @@ public interface EgovSampleService {
 	int listInsert(Map map);
 	int listDelete(Map map);
 	int nameChk(Map map) throws Exception;
+	int nameChk02(Map map) throws Exception;
 }

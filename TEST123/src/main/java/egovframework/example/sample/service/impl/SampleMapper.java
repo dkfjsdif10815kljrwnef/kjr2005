@@ -123,6 +123,7 @@ public interface SampleMapper {
 	List<UserVO>listAll(Map map);
 	int listInsert(Map map);
 	int listDelete(Map map);
+	int nameChk02(Map map) throws Exception;
 	// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 	

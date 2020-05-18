@@ -70,8 +70,6 @@ public class EgovSampleController {
 		@Autowired
 		private TaskVO task;
 		
-		@Autowired
-		private ListVO listVo;
 	
 		
 	/**
@@ -143,10 +141,15 @@ public class EgovSampleController {
 		task.setName(map.get("name"));
 		task.setStartDay(map.get("startDay"));
 		task.setEndDay(map.get("endDay"));
-		
+			int chk=0;
 		try {
-				int chk = service.taskUpdate(task);
+				chk = service.nameChk02(map);
+				if(chk==0) {
+				chk = service.taskUpdate(task);
 				map.put("chk","1");
+				}else {
+					map.put("chk", "0");
+				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -262,6 +265,7 @@ public class EgovSampleController {
 		user.setName(map.get("NAME"));
 		int chk;
 		try {
+			
 			chk = service.userChk(user.getId());
 			if(chk>0) { //일치하는 아이디여부 확인
 				//일치할경우 update작업
