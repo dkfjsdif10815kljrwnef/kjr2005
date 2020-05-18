@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="egovframework.example.sample.service.impl.SampleMapper">
+
+	<resultMap id="task" type="egovframework.example.sample.service.TaskVO">
+		<result property="num" column="num"/>
+		<result property="id" column="id"/>
+		<result property="name" column="name"/>
+		<result property="startDay" column="startDay"/>
+		<result property="endDay" column="endDay"/>
+	</resultMap>
+	
+	<insert id="taskInsert" parameterType="TaskVO" >
+		insert into task
+		(ID,NAME,STARTDAY,ENDDAY)
+		values
+		(#{id},#{name},#{startDay},#{endDay})
+	</insert>
+	
+	<select id="taskSelectNum" parameterType="TaskVO" resultType="int">
+		select num
+		from task
+		where id = #{id} and name = #{name} and startday = #{startDay} and endday = #{endDay}
+	</select>
+	<select id="nameChk" parameterType="String" resultType="int">
+		select count(*)
+		from task
+		where name = #{value} 
+	</select>
+	<update id="taskUpdate" parameterType="TaskVO">
+		update task
+		set name = #{name}, startday = #{startDay} ,endday = #{endDay}
+		where num = #{nm}
+	</update>
+	<select id="taskAll"  resultType="TaskVO" parameterType="PageVO">
+		select * 
+		from task
+		order by NUM
+		limit
+			#{startList},#{listSize}
+	</select>
+	
+	<select id="taskSelect" resultType="TaskVO">
+		select NAME,date_format(STARTDAY, '%Y-%m-%d') STARTDAY,date_format(ENDDAY, '%Y-%m-%d') ENDDAY
+		from task
+		where num = ${value}
+	</select>
+</mapper>

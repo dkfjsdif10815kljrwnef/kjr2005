@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+    <typeAliases>
+		<typeAlias alias="searchVO" type="egovframework.example.sample.service.SampleDefaultVO"/>
+		<typeAlias alias="sampleVO" type="egovframework.example.sample.service.SampleVO"/>
+		<typeAlias alias="ListVO" type="egovframework.example.sample.service.ListVO"/>
+		<typeAlias alias="TaskVO" type="egovframework.example.sample.service.TaskVO"/>
+		<typeAlias alias="UserVO" type="egovframework.example.sample.service.UserVO"/>
+		<typeAlias alias="PageVO" type="egovframework.example.sample.service.PageVO"/>
+    </typeAliases>
+</configuration>

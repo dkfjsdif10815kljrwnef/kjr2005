@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="egovframework.example.sample.service.impl.SampleMapper">
+
+	<resultMap id="user" type="egovframework.example.sample.service.UserVO">
+		<result property="id" column="id"/>
+		<result property="name" column="name"/>
+	</resultMap>
+	
+	<select id="userChk" resultType="int">
+		select count(*) 
+		from user 
+		where  id = #{id}
+	</select>
+	
+	<select id="userSelect" resultType="UserVO">
+		select id, name 
+		from user
+		where  id = #{id}
+	</select>
+	
+	<select id="userAll"  resultType="UserVO" parameterType="PageVO">
+		select id, name 
+		from user
+		order by id
+		limit
+			#{startList},#{listSize}
+	</select>
+	
+	<insert id="userInsert" parameterType="UserVO">
+		insert into user
+		(id,name)
+		values 
+		(#{id},#{name})
+	</insert>
+	
+	<update id="userUpdate" parameterType="UserVO">
+		update user
+		set name=#{name}
+		where id=#{id}
+	</update>
+
+	<select id="ListCnt" resultType="int" parameterType="String"> 
+		select
+			count(*)
+		from
+			${value} 
+	</select>
+	
+
+</mapper>
