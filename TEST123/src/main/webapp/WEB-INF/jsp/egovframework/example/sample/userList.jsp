@@ -10,18 +10,18 @@
 <title>Insert title here</title>
 	<script>
 	$(function(){
+		
 		$("table").on('click','tr',function(){
 			var trId = $(this).attr('id');
 			var trName = $(this).attr('name');
 			if(!trName){
-				console.log("제목");
 			}else{
-				console.log(trId);
-				console.log(trName);
 				location.href="userInfo.do?ID="+trId+"&NAME="+trName;
 			}
 		})//테이블 클릭 이벤트
+		
 	});
+	
 	//이전 버튼 이벤트
 	function fn_prev(page, range, rangeSize) {
 
@@ -120,12 +120,7 @@
 					</ul>
 				</div>
 <!-- pagination{e} -->
-
-
-
-         		 
-         		 
-         		 
+		 
 	        </div>
         </div>
     </div>
