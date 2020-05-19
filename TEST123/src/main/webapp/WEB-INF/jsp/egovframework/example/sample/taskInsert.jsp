@@ -16,6 +16,7 @@
 			var startDay = document.getElementById("startDay").value
 			var endDay = document.getElementById("endDay").value
 	       
+			//공백체크
 			if(!nameData){
 				alert("과제명을 입력하세요");
 				return false;
@@ -36,9 +37,13 @@
 					
 			if(days){
 				var formData = { "name" : nameData,		"startDay" : startDay,			"endDay" : endDay }
+				
 				ajaxInsert(formData)//insert작업
 			}else{
-				alert("시작일이 종료일보다 빨라야합니다.");
+				var sday = document.getElementById("startDay");
+				$(sday).addClass("is-invalid");
+				$('#endDay').addClass("is-invalid");
+				$('#msgDay').removeClass("invalid-feedback");
 			}
 			
 			
@@ -97,7 +102,12 @@
 					      <input type="date" class="form-control" id="endDay" name="endDay" value="${endDay } path="endDay"/>
 					    </div>
 					  </div>
+					  <div id="msgDay" class="invalid-feedback" style="color:red; margin-bottom:8px;">
+					  	시작일을 종료일보다 빠르게 설정해주세요.
+					  </div>
+					  <div>
 				 	 <input type="button" id="btn" class="btn btn-sm btn-secondary" value="입력">
+				 	 </div>
 				</form>
 				<p/>
 	        </div>

@@ -25,8 +25,44 @@
 				false;
 				return false;
 			}
-			ajaxInsert(idData,nameData);
+
+			var chk = idNamesCheck(idData,nameData);
+			console.log(chk);
+			if(chk){
+				console.log("insert");
+				//ajaxInsert(idData,nameData);	
+			}
 		})//btn클릭이벤트 닫음
+		
+		function idNamesCheck (idData, nameData) {  
+			console.log(idData,nameData)
+		    // 정규표현식으로 한글만 선택하도록 만듭니다.
+		    var engCheck = /^[a-zA-Z0-9]{1,10}$/; //id조건
+		    var krCheck = /^[가-힣]{1,10}$/; //이름조건
+		    var chk=0;
+		    //id체크
+		     if (engCheck.test(idData)) {
+		    } else {
+		    	$("#id").addClass("is-invalid");
+		    	$("#msgId").removeClass("invalid-feedback");
+		    	chk += 1;
+		    }  
+		    
+		    //이름체크
+		    if (krCheck.test(nameData)) {
+			} else{
+			    	$("#name").addClass("is-invalid");
+			    	$("#msgName").removeClass("invalid-feedback");
+			    	chk += 1;
+			 }
+		    
+		     if(chk==0){
+		    	 return true;
+		     }else{
+		    	 return false;
+		     }
+		    
+		}
 		
 		function ajaxInsert(idData,nameData){
 			var formData = {
@@ -76,11 +112,17 @@
 				      <input type="text" class="form-control" id="id" name="ID">
 				     </div>
 				 </div>
+				 <div id="msgId" class="invalid-feedback" style="color:red; margin-bottom:8px;">
+					  	ID은 10글자 내외 영어와 숫자로만 입력해주세요.
+				 </div>
 				 <div class="form-group row">
 				    <label for="name" class="col-sm-2 col-form-label">이름</label>
 				    <div class="col-sm-9">
 				      <input type="text" class="form-control" id="name" name="NAME">
 				     </div>
+				 </div>
+				 <div id="msgName" class="invalid-feedback" style="color:red; margin-bottom:8px;">
+					  	이름은 10글자 내외 한글로만 입력해주세요.
 				 </div>
 				 <input id="btn" class="btn btn-sm btn-secondary" type="button" value="입력">
 				</form>

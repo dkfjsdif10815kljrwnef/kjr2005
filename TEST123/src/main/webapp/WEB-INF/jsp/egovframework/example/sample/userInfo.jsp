@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,6 +14,9 @@
 <title>Insert title here</title>
 	<script>
 	 $(function(){
+		 
+		 
+		 
 		$("#btn").on("click",function(){
 			var idData = document.getElementById("id").value
 			var nameData = document.getElementById("name").value
@@ -21,8 +25,31 @@
 				false;
 				return false;
 			}
-			ajaxInsert(idData,nameData);
+			if(idNamesCheck(nameData)){
+				ajaxInsert(idData,nameData);
+			}
+			
 		});//btn 클릭이벤트 닫음
+		
+		
+		
+		function idNamesCheck (nameData) {  
+		    // 정규표현식으로 한글만 선택하도록 만듭니다.
+		    var krCheck = /^[가-힣]{1,10}$/; //이름조건
+		    
+		    //이름체크
+		    if (krCheck.test(nameData)) {
+		    	 return true;
+			} else{
+			    	$("#name").addClass("is-invalid");
+			    	$("#msgName").removeClass("invalid-feedback");
+			    	return false;
+			 }
+		    
+		}
+		
+		
+		
 		
 		function ajaxInsert(idData,nameData){
 			var formData = {
@@ -48,6 +75,8 @@
 					
 		        });//done닫기		
 		}//
+		
+		
 	  });//마지막닫기
 	</script>
 	
@@ -74,7 +103,14 @@
 				      <input type="text" class="form-control" id="name" name="NAME" value="${NAME }">
 				     </div>
 				 </div>
+				 <div id="msgName" class="invalid-feedback" style="color:red; margin-bottom:8px;">
+					  	이름은 10글자 내외 한글로만 입력해주세요.
+				 </div>
+				 <c:set var="loginId" value="${loginId }" />
+				 <c:set var="id" value="${ID }" />
+				 <c:if test="${loginId eq id  }">
 				 <input  id="btn" class="btn btn-sm btn-secondary" type="button" value="수정">
+				 </c:if>
 				</form>
 			</div>
         </div>

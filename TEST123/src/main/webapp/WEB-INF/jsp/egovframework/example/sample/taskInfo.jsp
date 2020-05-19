@@ -65,7 +65,11 @@ $(function(){
 					
 					ajaxUpdate(formData)//insert작업
 				}else{
-					alert("시작일이 종료일보다 빨라야합니다.");
+					var sday = document.getElementById("startDay");
+					$(sday).addClass("is-invalid");
+					$('#endDay').addClass("is-invalid");
+					$('#msgDay').removeClass("invalid-feedback"); //시작일이 종료일보다 빨라야합니다. 
+					
 				}
 				
 	 });//클릭이벤트종료 
@@ -157,12 +161,15 @@ function ajaxDelete(trid,trnum){
 				     <input type="date" class="form-control" id="endDay" name="endDay" value="${task.endDay }"/>
 				    </div>
 				  </div>
-			
+				 <div id="msgDay" class="invalid-feedback" style="color:red; margin-bottom:8px;">
+					  	시작일을 종료일보다 빠르게 설정해주세요.
+				 </div>
 				  <c:if test="${task.id eq loginId }">
 				  	<input type="button" id="updateBtn" class="btn btn-sm btn-secondary" value="수정">
 				  </c:if>
 				</form>
 				<p/>
+				
 				<form>
 					<table class="tableCenter table-hover table-mar">
 						 <tr>

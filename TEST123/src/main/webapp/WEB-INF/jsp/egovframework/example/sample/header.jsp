@@ -31,6 +31,9 @@
           	margin-top : 25px;
           	margin-bottom : 15px;
           }
+          .hiden{
+          	display: none 
+          }
          </style>
 </head>
 <body>

@@ -294,9 +294,15 @@ public class EgovSampleController {
 	}
 		
 	@RequestMapping("/userInfo.do")
-	public ModelAndView userInfo(@RequestParam String ID,@RequestParam String NAME, ModelAndView mv) {
+	public ModelAndView userInfo(@RequestParam String ID, ModelAndView mv, HttpSession session) {
+		try {
+			user = service.userSelect(ID);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		mv.addObject("loginId",session.getAttribute("loginId"));
 		mv.addObject("ID", ID);
-		mv.addObject("NAME", NAME);
+		mv.addObject("NAME",user.getName());
 		mv.setViewName("sample/userInfo");
 		return mv;
 	}
